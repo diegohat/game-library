@@ -1,5 +1,10 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+HUSKY_DIR="$(dirname "$0")"
+if [ -f "$HUSKY_DIR/_/husky.sh" ]; then
+  . "$HUSKY_DIR/_/husky.sh"
+else
+  echo "Warning: Husky bootstrap file not found at $HUSKY_DIR/_/husky.sh; continuing without Husky initialization." >&2
+fi
 
 echo "🔍 Rodando lint-staged..."
 npx lint-staged
