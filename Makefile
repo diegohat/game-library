@@ -13,7 +13,11 @@ run-frontend: ## Sobe o Angular dev server
 	cd frontend && ng serve --open
 
 run: ## Sobe API e frontend em paralelo
-	make run-api & make run-frontend
+	@set -e; \
+	$(MAKE) run-api & pid_api=$$!; \
+	$(MAKE) run-frontend & pid_frontend=$$!; \
+	wait $$pid_api; \
+	wait $$pid_frontend
 
 test-api: ## Roda testes do backend
 	cd backend && mvn test
