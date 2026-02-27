@@ -25,12 +25,13 @@ fi
 log "✅ Node OK"
 
 # ── Angular CLI ───────────────────────────────────────────────
-log "Instalando Angular CLI..."
-if ! npm install -g @angular/cli >> "$LOG_FILE" 2>&1; then
-    log_error "Falha ao instalar Angular CLI."
+ANGULAR_CLI_VERSION="17.3.8"
+log "Instalando Angular CLI (versão $ANGULAR_CLI_VERSION)..."
+if ! npm install -g @angular/cli@"$ANGULAR_CLI_VERSION" >> "$LOG_FILE" 2>&1; then
+    log_error "Falha ao instalar Angular CLI (versão $ANGULAR_CLI_VERSION)."
     exit 1
 fi
-log "✅ Angular CLI OK"
+log "✅ Angular CLI OK (versão $ANGULAR_CLI_VERSION)"
 
 # ── Dependências do frontend ──────────────────────────────────
 FRONTEND_DIR="/workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME}/frontend"
