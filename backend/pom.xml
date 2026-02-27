@@ -61,6 +61,10 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.11</version>
@@ -81,4 +85,28 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Dev profile: Flyway Maven plugin connects to local devcontainer database -->
+        <profile>
+            <id>dev</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.flywaydb</groupId>
+                        <artifactId>flyway-maven-plugin</artifactId>
+                        <configuration>
+                            <url>jdbc:postgresql://localhost:5432/gamelibrary</url>
+                            <user>dev</user>
+                            <password>devpassword</password>
+                            <locations>
+                                <location>classpath:db/migration</location>
+                                <location>classpath:db/seed</location>
+                            </locations>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

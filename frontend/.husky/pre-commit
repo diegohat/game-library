@@ -7,7 +7,7 @@ else
 fi
 
 echo "🔍 Rodando lint-staged..."
-npx lint-staged
+npx --prefix "$HUSKY_DIR/.." lint-staged
 
 echo "🧪 Rodando toda a suíte de testes..."
-npx ng test --watch=false --browsers=ChromeHeadless --include='**/*.spec.ts'
+npx --prefix "$HUSKY_DIR/.." ng test --watch=false --browsers=ChromeHeadless --include='**/*.spec.ts'

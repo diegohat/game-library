@@ -32,4 +32,4 @@ lint: ## Roda ESLint no frontend
 	cd frontend && npm run lint
 
 migrate: ## Roda migrações Flyway manualmente
-	cd backend && mvn flyway:migrate -Dspring-boot.run.profiles=dev
+	cd backend && mvn flyway:migrate -Pdev

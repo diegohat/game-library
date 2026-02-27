@@ -25,16 +25,13 @@ fi
 log "✅ Node OK"
 
 # ── Angular CLI ───────────────────────────────────────────────
-ANGULAR_CLI_VERSION="17.3.8"
-log "Instalando Angular CLI (versão $ANGULAR_CLI_VERSION)..."
-if ! npm install -g @angular/cli@"$ANGULAR_CLI_VERSION" >> "$LOG_FILE" 2>&1; then
-    log_error "Falha ao instalar Angular CLI (versão $ANGULAR_CLI_VERSION)."
-    exit 1
-fi
-log "✅ Angular CLI OK (versão $ANGULAR_CLI_VERSION)"
-
-# ── Dependências do frontend ──────────────────────────────────
+log "Verificando Angular CLI local..."
 FRONTEND_DIR="/workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME}/frontend"
+if [ -f "$FRONTEND_DIR/node_modules/.bin/ng" ]; then
+    log "✅ Angular CLI local OK"
+else
+    log "⚠️  Angular CLI local não encontrado — será instalado com npm ci"
+fi
 if [ -f "$FRONTEND_DIR/package.json" ]; then
     log "Instalando dependências do frontend..."
     if ! npm ci --prefix "$FRONTEND_DIR" >> "$LOG_FILE" 2>&1; then
@@ -45,7 +42,7 @@ if [ -f "$FRONTEND_DIR/package.json" ]; then
 
     log "Configurando Husky..."
     REPO_ROOT="/workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME}"
-    if ! (cd "$REPO_ROOT" && npx husky install frontend/.husky) >> "$LOG_FILE" 2>&1; then
+    if ! (cd "$REPO_ROOT" && npx --prefix "$FRONTEND_DIR" husky install frontend/.husky) >> "$LOG_FILE" 2>&1; then
         log "⚠️  Husky não configurado (frontend ainda não inicializado?)"
     else
         log "✅ Husky OK"
