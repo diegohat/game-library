@@ -5,6 +5,12 @@ LOG_FILE="/tmp/on-create.log"
 
 log() { echo "[$(date '+%H:%M:%S')] $1" | tee -a "$LOG_FILE"; }
 
+# ── Carregar SDKMAN (instalado pela feature Java do devcontainer) ──
+export SDKMAN_DIR="${SDKMAN_DIR:-/usr/local/sdkman}"
+if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
+    source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
+
 log "🚀 Iniciando on-create..."
 
 # ── Git safe directory ─────────────────────────────────────────

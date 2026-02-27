@@ -1,11 +1,10 @@
-version: "3.9"
-
 services:
     app:
         image: mcr.microsoft.com/devcontainers/base:ubuntu
         volumes:
             - ..:/workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME:-game-library}:cached
         command: sleep infinity
+        env_file: .env
         environment:
             - LOCAL_WORKSPACE_FOLDER_BASENAME=${LOCAL_WORKSPACE_FOLDER_BASENAME:-game-library}
         depends_on:

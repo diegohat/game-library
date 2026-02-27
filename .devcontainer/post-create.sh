@@ -6,15 +6,27 @@ LOG_FILE="/tmp/post-create.log"
 log() { echo "[$(date '+%H:%M:%S')] $1" | tee -a "$LOG_FILE"; }
 log_error() { echo "[$(date '+%H:%M:%S')] ❌ ERRO: $1" | tee -a "$LOG_FILE" >&2; }
 
+# ── Carregar SDKMAN (instalado pela feature Java do devcontainer) ──
+export SDKMAN_DIR="${SDKMAN_DIR:-/usr/local/sdkman}"
+if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
+    source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
+
 log "🚀 Iniciando post-create..."
 
 # ── Maven ─────────────────────────────────────────────────────
+BACKEND_DIR="/workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME}/backend"
 log "Verificando Maven..."
-if ! mvn --version >> "$LOG_FILE" 2>&1; then
-    log_error "Maven não encontrado ou falhou."
+if command -v mvn &>/dev/null; then
+    mvn --version >> "$LOG_FILE" 2>&1
+    log "✅ Maven (sistema) OK"
+elif [ -x "$BACKEND_DIR/mvnw" ]; then
+    "$BACKEND_DIR/mvnw" --version >> "$LOG_FILE" 2>&1
+    log "✅ Maven (wrapper) OK"
+else
+    log_error "Maven não encontrado (nem mvn nem ./mvnw)."
     exit 1
 fi
-log "✅ Maven OK"
 
 # ── Node ──────────────────────────────────────────────────────
 log "Verificando Node..."
@@ -34,7 +46,7 @@ else
 fi
 if [ -f "$FRONTEND_DIR/package.json" ]; then
     log "Instalando dependências do frontend..."
-    if ! npm ci --prefix "$FRONTEND_DIR" >> "$LOG_FILE" 2>&1; then
+    if ! npm install --prefix "$FRONTEND_DIR" >> "$LOG_FILE" 2>&1; then
         log_error "Falha ao instalar dependências do frontend."
         exit 1
     fi

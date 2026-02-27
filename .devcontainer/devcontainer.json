@@ -6,7 +6,8 @@
     "features": {
         "ghcr.io/devcontainers/features/java:1": {
             "version": "21",
-            "jdkDistro": "ms"
+            "jdkDistro": "ms",
+            "installMaven": "true"
         },
         "ghcr.io/devcontainers/features/node:1": {
             "nodeGypDependencies": true,
@@ -34,11 +35,11 @@
             }
         }
     },
+    "initializeCommand": "test -f .devcontainer/.env || cp .devcontainer/.env.example .devcontainer/.env",
     "onCreateCommand": "bash .devcontainer/on-create.sh",
     "postCreateCommand": "bash .devcontainer/post-create.sh",
     "postStartCommand": "bash .devcontainer/post-start.sh",
     "remoteEnv": {
         "LOCAL_WORKSPACE_FOLDER_BASENAME": "${localWorkspaceFolderBasename}"
-    },
-    "runArgs": ["--env-file", ".devcontainer/.env"]
+    }
 }
