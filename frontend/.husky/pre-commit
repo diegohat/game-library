@@ -9,5 +9,5 @@ fi
 echo "🔍 Rodando lint-staged..."
 npx lint-staged
 
-echo "🧪 Rodando testes afetados..."
+echo "🧪 Rodando toda a suíte de testes..."
 npx ng test --watch=false --browsers=ChromeHeadless --include='**/*.spec.ts'
