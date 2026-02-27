@@ -44,7 +44,8 @@ if [ -f "$FRONTEND_DIR/package.json" ]; then
     log "✅ Dependências do frontend OK"
 
     log "Configurando Husky..."
-    if ! (cd "$FRONTEND_DIR" && npx husky install) >> "$LOG_FILE" 2>&1; then
+    REPO_ROOT="/workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME}"
+    if ! (cd "$REPO_ROOT" && npx husky install frontend/.husky) >> "$LOG_FILE" 2>&1; then
         log "⚠️  Husky não configurado (frontend ainda não inicializado?)"
     else
         log "✅ Husky OK"

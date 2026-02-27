@@ -54,3 +54,5 @@ V1__init.sql
 V2__add_cover_url.sql
 ...
 ```
+
+Dados de seed para desenvolvimento ficam em `backend/src/main/resources/db/seed/` e são carregados apenas no profile `dev` (via `application-dev.properties`).

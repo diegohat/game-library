@@ -1,4 +1,4 @@
-.PHONY: help run-api run-frontend run test-api test-frontend test lint install
+.PHONY: help run-api run-frontend run test-api test-frontend test lint install migrate
 
 help: ## Mostra os comandos disponíveis
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
