@@ -1,0 +1,30 @@
+# Devcontainer
+.devcontainer/.env
+
+# VS Code local (gerado pelo post-create.sh)
+.vscode/settings.json
+
+# Segredos — nunca versionar
+*.env
+!*.env.example
+application-local.properties
+**/*.key
+**/*.pem
+**/*.p12
+**/*.jks
+
+# Java / Maven
+backend/target/
+*.class
+*.jar
+*.war
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+
+# Sistema
+.DS_Store
+Thumbs.db

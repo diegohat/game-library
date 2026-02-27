@@ -1,0 +1,13 @@
+#!/bin/sh
+HUSKY_DIR="$(dirname "$0")"
+if [ -f "$HUSKY_DIR/_/husky.sh" ]; then
+  . "$HUSKY_DIR/_/husky.sh"
+else
+  echo "Warning: Husky bootstrap file not found at $HUSKY_DIR/_/husky.sh; continuing without Husky initialization." >&2
+fi
+
+echo "🔍 Rodando lint-staged..."
+npx --prefix "$HUSKY_DIR/.." lint-staged
+
+echo "🧪 Rodando toda a suíte de testes..."
+npx --prefix "$HUSKY_DIR/.." ng test --watch=false --browsers=ChromeHeadless --include='**/*.spec.ts'

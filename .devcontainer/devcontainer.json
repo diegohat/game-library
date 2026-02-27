@@ -1,0 +1,44 @@
+{
+    "name": "Game Library Dev",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "21",
+            "jdkDistro": "ms"
+        },
+        "ghcr.io/devcontainers/features/node:1": {
+            "nodeGypDependencies": true,
+            "version": "lts"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vmware.vscode-spring-boot",
+                "angular.ng-template",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg",
+                "EditorConfig.EditorConfig"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "[java]": {
+                    "editor.defaultFormatter": "redhat.java"
+                }
+            }
+        }
+    },
+    "onCreateCommand": "bash .devcontainer/on-create.sh",
+    "postCreateCommand": "bash .devcontainer/post-create.sh",
+    "postStartCommand": "bash .devcontainer/post-start.sh",
+    "remoteEnv": {
+        "LOCAL_WORKSPACE_FOLDER_BASENAME": "${localWorkspaceFolderBasename}"
+    },
+    "runArgs": ["--env-file", ".devcontainer/.env"]
+}

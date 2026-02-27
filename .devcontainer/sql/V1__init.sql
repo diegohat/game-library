@@ -1,0 +1,8 @@
+-- devcontainer init script
+--
+-- Este script é executado pelo PostgreSQL na inicialização do container
+-- (docker-entrypoint-initdb.d) apenas se o volume de dados estiver vazio.
+--
+-- O schema da aplicação e os dados de seed são gerenciados exclusivamente
+-- pelo Flyway em backend/src/main/resources/db/migration/ (e db/seed/ para dev).
+-- Não crie tabelas de aplicação aqui para evitar conflito com as migrations Flyway.
