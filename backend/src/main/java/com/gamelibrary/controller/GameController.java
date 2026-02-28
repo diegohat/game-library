@@ -1,7 +1,6 @@
 package com.gamelibrary.controller;
 
 import com.gamelibrary.dto.GameResponse;
-import com.gamelibrary.model.Game;
 import com.gamelibrary.repository.GameRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
