@@ -43,7 +43,7 @@ A arquitetura é simples e clássica:
 
 ```
 ┌─────────────┐     HTTP/JSON     ┌─────────────┐      SQL       ┌──────────┐
-│   Angular   │ ◄──────────────► │ Spring Boot │ ◄────────────► │ Postgres │
+│   Angular   │ ◄──────────────►  │ Spring Boot │ ◄────────────► │ Postgres │
 │  (frontend) │      :4200        │  (backend)  │     :5432      │  (banco) │
 └─────────────┘                   └─────────────┘                └──────────┘
      SPA                           REST API                      Relacional
@@ -98,7 +98,7 @@ as coisas de um jeito. Resultado: **"Na minha máquina funciona"**.
 Um Dev Container é um **ambiente de desenvolvimento completo dentro de um container Docker**.
 
 ```
-┌─────────── Seu macOS/Windows/Linux ───────────┐
+┌─────────── Seu macOS/Windows/Linux ────────────┐
 │                                                │
 │  ┌──────────── Docker ───────────────────┐     │
 │  │                                       │     │
