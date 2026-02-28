@@ -1,8 +1,6 @@
 services:
     app:
         image: mcr.microsoft.com/devcontainers/base:ubuntu
-        volumes:
-            - ..:/workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME:-game-library}:cached
         command: sleep infinity
         env_file: .env
         environment:
