@@ -14,9 +14,9 @@ describe('AppComponent', () => {
         expect(app).toBeTruthy();
     });
 
-    it(`should have the 'game-library-frontend' title`, () => {
+    it(`should have the 'Game Library Tracker' title`, () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
-        expect(app.title).toEqual('game-library-frontend');
+        expect(app.title).toEqual('Game Library Tracker');
     });
 });

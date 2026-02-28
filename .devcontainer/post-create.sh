@@ -87,7 +87,7 @@ cat > /workspaces/${LOCAL_WORKSPACE_FOLDER_BASENAME}/.vscode/settings.json << EO
         {
             "name": "Game Library (dev)",
             "driver": "PostgreSQL",
-            "host": "localhost",
+            "host": "postgres",
             "port": 5432,
             "database": "${POSTGRES_DB}",
             "username": "${POSTGRES_USER}",

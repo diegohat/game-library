@@ -1,4 +1,7 @@
-.PHONY: help run-api run-frontend run test-api test-frontend test lint install migrate
+.PHONY: help run-api run-frontend run test-api test-frontend test lint install migrate db-reset
+
+# ── Configuração de ambiente (dev | stg | prd) ──────────────────
+PROFILE ?= dev
 
 help: ## Mostra os comandos disponíveis
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -6,11 +9,14 @@ help: ## Mostra os comandos disponíveis
 install: ## Instala dependências do frontend
 	cd frontend && npm ci
 
-run-api: ## Sobe o Spring Boot em modo dev
-	cd backend && ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+run-api: ## Sobe o Spring Boot (PROFILE=dev|stg|prd)
+	cd backend && ./mvnw spring-boot:run -Dspring-boot.run.profiles=$(PROFILE)
 
-run-frontend: ## Sobe o Angular dev server
-	cd frontend && ng serve --open
+run-frontend: ## Sobe o Angular dev server (com proxy para API)
+	cd frontend && npx ng serve --open
+
+run-frontend-stg: ## Sobe o Angular dev server com config staging
+	cd frontend && npx ng serve --configuration staging --open
 
 run: ## Sobe API e frontend em paralelo
 	@set -e; \
@@ -23,7 +29,7 @@ test-api: ## Roda testes do backend
 	cd backend && ./mvnw test
 
 test-frontend: ## Roda testes do frontend
-	cd frontend && npm test -- --watch=false --browsers=ChromeHeadless
+	cd frontend && npx ng test --watch=false --browsers=ChromeHeadless
 
 test: ## Roda todos os testes
 	make test-api && make test-frontend
@@ -33,3 +39,15 @@ lint: ## Roda ESLint no frontend
 
 migrate: ## Roda migrações Flyway manualmente
 	cd backend && ./mvnw flyway:migrate -Pdev
+
+db-reset: ## Limpa e recria o banco dev (flyway clean + migrate)
+	cd backend && ./mvnw flyway:clean flyway:migrate -Pdev
+
+build-frontend: ## Build de produção do frontend
+	cd frontend && npx ng build --configuration production
+
+build-frontend-stg: ## Build de staging do frontend
+	cd frontend && npx ng build --configuration staging
+
+verify: ## Build completo com testes (CI-like)
+	cd backend && ./mvnw verify

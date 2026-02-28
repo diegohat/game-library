@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
     template: `<router-outlet />`,
 })
 export class AppComponent {
-    title = 'game-library-frontend';
+    title = 'Game Library Tracker';
 }
