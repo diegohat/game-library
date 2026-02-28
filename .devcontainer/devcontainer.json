@@ -7,8 +7,7 @@
     "features": {
         "ghcr.io/devcontainers/features/java:1": {
             "version": "21",
-            "jdkDistro": "ms",
-            "installMaven": "true"
+            "jdkDistro": "ms"
         },
         "ghcr.io/devcontainers/features/node:1": {
             "nodeGypDependencies": true,
@@ -41,7 +40,8 @@
                 "EditorConfig.EditorConfig",
                 "eamodio.gitlens",
                 "GitHub.copilot",
-                "humao.rest-client"
+                "humao.rest-client",
+                "ms-vscode.makefile-tools"
             ],
             "settings": {
                 "editor.formatOnSave": true,
